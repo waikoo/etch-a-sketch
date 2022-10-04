@@ -1,0 +1,133 @@
+@font-face {
+	font-family: 'Schoolbell';
+	src: url('../fonts/Schoolbell.woff2');
+}
+
+$ff: 'Schoolbell', monospace;
+
+body {
+	height: 100vh;
+	font-family: $ff;
+	// background: rgb(0, 0, 0);
+}
+
+main {
+	margin: 0 auto;
+	width: 980px;
+}
+
+#grid {
+	width: 800px;
+	height: 600px;
+	// border: 1px solid rgb(121, 121, 121);
+	box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.233);
+}
+
+.row {
+	display: flex;
+}
+
+.tools {
+	// border: 1px solid black;
+	position: relative;
+	padding: 0.3rem 1rem 1rem;
+}
+
+.color-picker {
+	margin-top: 0.9rem;
+}
+
+.box {
+	// width: 10px;
+	// height: 10px;
+	// border: 1px solid black;
+	background: white;
+}
+
+main {
+	display: flex;
+	align-content: center;
+}
+
+img {
+	width: 50px;
+	height: 50px;
+}
+
+header img {
+	display: block;
+	margin: 0 auto;
+	width: 40%;
+	height: auto;
+}
+
+h1 {
+	margin-top: 0;
+	text-align: center;
+	font-size: 4em;
+}
+
+.black {
+	background: black;
+}
+
+.white {
+	background: white;
+}
+
+input#color {
+	border: none;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
+
+.color-picker input {
+	border-radius: 50px;
+	position: relative;
+	left: 0.2rem;
+	bottom: 3.1rem;
+	height: 150px;
+	width: 1px;
+	z-index: -1;
+	// appearance: none;
+}
+
+.color-picker {
+	// border: 1px solid black;
+}
+
+input::-webkit-color-swatch-wrapper {
+	// padding: 15px;
+	// margin: 0;
+	// background: none;
+	width: 40px;
+	height: 40px;
+}
+input::-webkit-color-swatch {
+	border: none;
+}
+
+.grid-modifier img {
+	margin-top: -3rem;
+	padding-top: -1rem;
+	position: relative;
+}
+
+.color-picker,
+.grid-modifier,
+.eraser,
+.delete {
+	cursor: pointer;
+}
+
+.delete {
+	display: flex;
+	place-content: center;
+}
+
+.delete img {
+	margin-top: 0.2rem;
+	width: 45px;
+	height: auto;
+}
