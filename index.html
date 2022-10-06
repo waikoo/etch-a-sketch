@@ -38,14 +38,20 @@
       <div class="grid-setter">
 
       </div>
-      <div class="eraser">
+      <div
+        class="eraser"
+        title="Eraser"
+      >
         <img
           class="eraser"
           src="img/eraser.png"
           alt=""
         >
       </div>
-      <div class="color-picker">
+      <div
+        class="color-picker"
+        title="Color Picker"
+      >
         <img
           src="img/color.png"
           alt=""
@@ -56,17 +62,51 @@
           id="color"
         >
       </div>
-      <div class="grid-modifier">
-        <img
-          src="img/grid.png"
-          alt=""
-        >
-      </div>
-      <div class="delete">
+      <div
+        class="delete"
+        title="Delete whole sketch"
+      >
         <img
           src="img/delete-button.png"
           alt=""
         >
+      </div>
+      <div
+        class="cursor"
+        title="Color on click & drag"
+      >
+        <div class="drag">
+          <img
+            src="img/cursor.png"
+            alt=""
+          >
+        </div>
+        <div
+          class="hover selected"
+          title="Color on hover"
+        >
+          <img
+            src="img/pointer.png"
+            alt=""
+          >
+        </div>
+        <div class="grid-slider">
+          <input
+            title="Grid"
+            type="range"
+            name="grid-slider"
+            id="grid-slider"
+            min="8"
+            max="100"
+            value="100"
+          >
+          <div class="slider-value">
+          </div>
+          <!-- <output
+            for="grid-slider"
+            onforminput="value = grid-slider.valueAsNumber;"
+          ></output> -->
+        </div>
       </div>
     </div>
     <div id="grid">
