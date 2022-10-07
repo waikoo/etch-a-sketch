@@ -1,17 +1,28 @@
-const boxes = document.querySelectorAll('.box');
-const pointerTool = document.querySelector('.hover');
+import $$ from './utils/helperFunctions.js';
+
+// objectless settings
+// let sizeOfGrid = 80;
+// let currentColor = '#000000';
+// let colorOnHover = true;
+// let isMouseDown = false;
+
+const boxes = document.getElementsByClassName('box');
+const colorOnHoverTool = document.querySelector('.hover');
 const clickDragTool = document.querySelector('.drag');
-
-let sizeOfGrid = 80;
-let currentColor = '#000000';
-let colorOnHover = true;
-let mouseDown = false;
-let mouseDragStart = false;
-let mouseDragEnd = false;
-
 const grid = document.querySelector('#grid');
-const eraser = document.querySelector('.eraser');
 const gridSlider = document.querySelector('#grid-slider');
+const gridSliderValue = document.querySelector('.slider-value');
+const eraser = document.querySelector('.eraser');
+const colorPickerIcon = document.querySelector('.color-picker img');
+const colorPickerInput = document.querySelector('.color-picker input');
+const deleteBtn = document.querySelector('.delete');
+
+const options = {
+	sizeOfGrid: 100,
+	currentColor: '#000000',
+	colorOnHover: true,
+	isMouseDown: false
+};
 
 function drawGrid(number) {
 	for (let i = 0; i < number; i++) {
@@ -19,170 +30,89 @@ function drawGrid(number) {
 		row.classList.add('row');
 
 		for (let j = 0; j < number; j++) {
-			const widthAndHeight = 960 / sizeOfGrid;
+			const widthAndHeight = 960 / options.sizeOfGrid;
 			const gridBox = document.createElement('div');
 			gridBox.classList.add('box');
 			gridBox.style.width = `${widthAndHeight}px`;
 			gridBox.style.height = `${widthAndHeight}px`;
-			gridBox.addEventListener('mouseenter', colorToBlack);
 			row.appendChild(gridBox);
 		}
 		grid.appendChild(row);
 	}
+	handleHoverTool();
 }
 
-function colorToBlack(e) {
-	console.log('colorToBlack on');
-	currentColor = colorPickerInput.value;
-	e.target.classList.remove('white');
-	e.target.classList.add('black');
+function eventTargetStyleToCurrentColor(e) {
+	e.target.style.backgroundColor = options.currentColor;
 }
-function colorToWhite(e) {
-	e.target.classList.remove('black');
-	e.target.classList.add('white');
+function handleEraseTool() {
+	options.currentColor = 'white';
 }
+function handleCustomColorPickClick() {
+	colorPickerInput.click();
+}
+function handleCustomColorPickerTool(e) {
+	options.currentColor = e.target.value;
+}
+function handleDeleteSketchTool() {
+	options.currentColor = colorPickerInput.value;
 
-function eraserHandler() {
-	document
-		.querySelectorAll('.box')
-		.forEach(item => item.removeEventListener('mouseenter', colorToBlack));
-	document
-		.querySelectorAll('.box')
-		.forEach(item => item.addEventListener('mouseenter', colorToWhite));
-}
-
-function colorPickerIconHandler() {
-	document.querySelector('.color-picker input').click();
-}
-function inputOnClickHandler() {
-	currentColor = e.target.value;
-	document
-		.querySelectorAll('.box')
-		.forEach(box => box.classList.remove('black'));
-	document
-		.querySelectorAll('.box')
-		.forEach(item => item.removeEventListener('mouseenter', colorToBlack));
-	document
-		.querySelectorAll('.box')
-		.forEach(item => item.removeEventListener('mouseenter', colorToWhite));
-}
-
-function changeSourceColorTo(e) {
-	currentColor = e.target.value;
-	document
-		.querySelectorAll('.box')
-		.forEach(item => item.removeEventListener('mouseenter', colorToBlack));
-	document
-		.querySelectorAll('.box')
-		.forEach(item => item.removeEventListener('mouseenter', colorToWhite));
-	e.target.style.backgroundColor = currentColor;
-}
-
-function deleteHandler() {
-	document.querySelectorAll('.box').forEach(item => {
+	$$('.box').forEach(item => {
 		item.style.backgroundColor = 'white';
 	});
-	document
-		.querySelectorAll('.box')
-		.forEach(item => item.removeEventListener('mouseenter', colorToWhite));
-	document
-		.querySelectorAll('.box')
-		.forEach(item => item.addEventListener('mouseenter', colorToBlack));
 }
-
-function dragHandler() {
-	pointerTool.classList.remove('selected');
+function handleClickDragTool() {
+	colorOnHoverTool.classList.remove('selected');
 	clickDragTool.classList.add('selected');
-	colorOnHover = false;
-}
+	options.colorOnHover = false;
+	options.isMouseDown = true;
 
-function pointerHandler() {
-	pointerTool.classList.add('selected');
+	// ? removes color on mouseenter - hover
+	$$('.box').forEach(box =>
+		box.removeEventListener('mouseenter', eventTargetStyleToCurrentColor)
+	);
+	// on mousedown event -> register event handlers for mousemove, mouseup
+	// color box on mousedown, on mousemove, stop coloring on mouseup
+	// on mouseup event -> deregister mousemove, mouseup
+
+	$$('.box').forEach(box => box.addEventListener('mousedown', () => {}));
+	// if (options.isMouseDown) {
+	// 	$$('.box').forEach(box => {
+	// 		box.addEventListener('mouseover', eventTargetStyleToCurrentColor);
+	// 	});
+	// }
+}
+function handleHoverTool() {
+	colorOnHoverTool.classList.add('selected');
 	clickDragTool.classList.remove('selected');
-	colorOnHover = true;
-	document
-		.querySelectorAll('.box')
-		.forEach(box => removeEventListener('mouseenter', colorToBlack));
-	document
-		.querySelectorAll('.box')
-		.forEach(box => removeEventListener('mouseenter', colorToBlack));
+
+	options.colorOnHover = true;
+
+	$$('.box').forEach(
+		box =>
+			box.removeEventListener('mousedown', eventTargetStyleToCurrentColor) // mouseup
+	);
+	$$('.box').forEach(
+		box => box.removeEventListener('mouseup', eventTargetStyleToCurrentColor) // mousedown
+	);
+
+	$$('.box').forEach(box =>
+		box.addEventListener('mouseenter', eventTargetStyleToCurrentColor)
+	);
+}
+function handleGridSliderTool() {
+	gridSliderValue.textContent = gridSlider.value;
+	options.sizeOfGrid = Number(gridSlider.value);
+	grid.innerHTML = '';
+	drawGrid(options.sizeOfGrid);
 }
 
-eraser.addEventListener('click', eraserHandler);
+eraser.addEventListener('click', handleEraseTool);
+colorPickerIcon.addEventListener('click', handleCustomColorPickClick);
+colorPickerInput.addEventListener('change', handleCustomColorPickerTool);
+deleteBtn.addEventListener('click', handleDeleteSketchTool);
+clickDragTool.addEventListener('click', handleClickDragTool);
+colorOnHoverTool.addEventListener('click', handleHoverTool);
+gridSlider.addEventListener('change', handleGridSliderTool);
 
-drawGrid(sizeOfGrid, color);
-
-// ! color picker
-const colorPickerIcon = document.querySelector('.color-picker img');
-const colorPickerInput = document.querySelector('.color-picker input');
-
-colorPickerIcon.addEventListener('click', colorPickerIconHandler); // colorPickerInputhoz vezet -> change megtortenik,
-colorPickerInput.addEventListener('change', changeSourceColorTo);
-// colorPickerInput.addEventListener('click', inputOnClickHandler);
-
-// ! delete btn
-const deleteBtn = document.querySelector('.delete');
-deleteBtn.addEventListener('click', deleteHandler);
-
-// ! grid slider
-gridSlider.addEventListener('change', e => {
-	document.querySelector('.slider-value').textContent = gridSlider.value;
-	sizeOfGrid = Number(gridSlider.value);
-	grid.innerHTML = '';
-	drawGrid(sizeOfGrid);
-	boxes.forEach(item => item.removeEventListener('mouseenter', colorToWhite));
-	document.querySelectorAll('.box').forEach(item => {
-		item.addEventListener('mouseenter', colorToBlack);
-	});
-});
-
-// ! pointerTool, clickDragTool
-
-clickDragTool.addEventListener('click', dragHandler);
-pointerTool.addEventListener('click', pointerHandler);
-
-setInterval(() => {
-	if (currentColor === colorPickerInput.value) {
-		return;
-	} else {
-		document
-			.querySelectorAll('.box')
-			.forEach(item => item.removeEventListener('mouseenter', colorToBlack));
-		if (colorOnHover) {
-			document.querySelectorAll('.box').forEach(item =>
-				item.addEventListener('mouseenter', () => {
-					item.style.backgroundColor = `${currentColor}`;
-				})
-			);
-		} else if (!colorOnHover) {
-			if (mouseDown && mouseDragStart) {
-				document.querySelectorAll('.box').forEach(item =>
-					item.addEventListener('dragstart', () => {
-						item.style.backgroundColor = `${currentColor}`;
-					})
-				);
-			}
-		}
-	}
-}, 100);
-
-// ha megkattintom a clickDragTool-t, a mouseenter eventListener-eknek remove, es a drag eventListenereket hozzaadjuk
-
-document.querySelectorAll('.box').forEach(box =>
-	box.addEventListener('mousedown', () => {
-		console.log('mousedown registered');
-		mouseDown = true;
-	})
-);
-document.querySelectorAll('.box').forEach(box =>
-	box.addEventListener('dragstart', () => {
-		console.log('dragstart registered');
-		mouseDragStart = true;
-	})
-);
-document.querySelectorAll('.box').forEach(box =>
-	box.addEventListener('dragend', () => {
-		console.log('dragend registered');
-		mouseDragEnd = true;
-	})
-);
+drawGrid(options.sizeOfGrid);
