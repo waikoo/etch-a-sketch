@@ -1,0 +1,24 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_401_40" fill="white">
+<path d="M8 32C8 18.7452 18.7452 8 32 8C45.2548 8 56 18.7452 56 32C56 45.2548 45.2548 56 32 56C18.7452 56 8 45.2548 8 32Z"/>
+</mask>
+<path d="M10 32C10 19.8497 19.8497 10 32 10V6C17.6406 6 6 17.6406 6 32H10ZM32 10C44.1503 10 54 19.8497 54 32H58C58 17.6406 46.3594 6 32 6V10ZM54 32C54 44.1503 44.1503 54 32 54V58C46.3594 58 58 46.3594 58 32H54ZM32 54C19.8497 54 10 44.1503 10 32H6C6 46.3594 17.6406 58 32 58V54Z" fill="white" mask="url(#path-1-inside-1_401_40)"/>
+<g filter="url(#filter0_d_401_40)">
+<circle cx="32" cy="32" r="23.5" stroke="white" shape-rendering="crispEdges"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M32 10C19.8497 10 10 19.8497 10 32C10 44.1503 19.8497 54 32 54C44.1503 54 54 44.1503 54 32C54 19.8497 44.1503 10 32 10ZM23 21C21.8954 21 21 21.8954 21 23V41C21 42.1046 21.8954 43 23 43H41C42.1046 43 43 42.1046 43 41V23C43 21.8954 42.1046 21 41 21H23Z" fill="#EEEEEE"/>
+<rect x="22" y="22" width="20" height="20" rx="1" stroke="#383838" stroke-width="2"/>
+<defs>
+<filter id="filter0_d_401_40" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="2" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_401_40"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="3"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.42 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_401_40"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_401_40" result="shape"/>
+</filter>
+</defs>
+</svg>
