@@ -26,7 +26,7 @@ function drawGrid(number) {
 		row.classList.add('row');
 
 		for (let j = 0; j < number; j++) {
-			const widthAndHeight = 620 / options.sizeOfGrid;
+			const widthAndHeight = 700 / options.sizeOfGrid;
 			const gridBox = document.createElement('div');
 			gridBox.classList.add('box');
 			gridBox.style.width = `${widthAndHeight}px`;
