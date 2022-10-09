@@ -64,7 +64,6 @@ function handleClickDragTool() {
 	colorOnHoverTool.classList.remove('selected');
 	clickDragTool.classList.add('selected');
 	options.colorOnHover = false;
-	// options.isMouseDown = true;
 
 	$$('.box').forEach(box => box.removeEventListener('mouseenter', eventTargetStyleToCurrentColor));
 
@@ -95,12 +94,12 @@ function handleHoverTool() {
 
 	$$('.box').forEach(box => box.addEventListener('mouseenter', eventTargetStyleToCurrentColor));
 }
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 function handleSaveSketch() {
 	html2canvas(grid).then(canvas => {
 		const dataUrl = canvas.toDataURL();
 		const a = document.createElement('a');
-		a.setAttribute('href', dataUrl); // ? encodeURIComponent - img ?
+		a.setAttribute('href', dataUrl);
 		a.setAttribute('download', 'my-sketch.png');
 		a.click();
 		// ! ^ works with dataURL
@@ -128,7 +127,7 @@ function handleGridSliderTool() {
 	grid.innerHTML = '';
 	drawGrid(options.sizeOfGrid);
 }
-
+document.body.addEventListener('dragstart', e => e.preventDefault());
 eraser.addEventListener('click', handleEraseTool);
 colorPickerIcon.addEventListener('click', handleCustomColorPickClick);
 colorPickerInput.addEventListener('change', handleCustomColorPickerTool);
